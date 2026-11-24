@@ -16,12 +16,16 @@
 %
 % Order matters. X \= Y succeeds only when X and Y are already bound to
 % different things, so put it after the goal that binds them.
-sibling(_, _) :-
-    throw(not_implemented(sibling/2)).
+sibling(X, Y) :-
+    parent(P, X),
+    parent(P, Y),
+    X \= Y.
 
 % cousin(X, Y): a parent of X and a parent of Y are siblings.
-cousin(_, _) :-
-    throw(not_implemented(cousin/2)).
+cousin(X, Y) :-
+    parent(PX, X),
+    parent(PY, Y),
+    sibling(PX, PY).
 
 % descendant(D, A): A is an ancestor of D.
 %
